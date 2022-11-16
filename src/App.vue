@@ -17,12 +17,6 @@ export default {
   data: () => ({
     //
   }),
-  mounted() {
-    if (this.$route.path !== "/dashboard") {
-      this.$router.push({
-        path: "/dashboard",
-      });
-    }
-  },
+  mounted() {},
 };
 </script>
