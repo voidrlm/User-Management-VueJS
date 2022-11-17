@@ -6,6 +6,7 @@
     <v-card-text>
       <v-form ref="form" v-model="valid" lazy-validation class="px-8 mt-3">
         <v-text-field
+          type="mail"
           prepend-inner-icon="mdi-mail"
           v-model="email"
           :rules="emailRules"
@@ -16,6 +17,7 @@
           color="black"
         ></v-text-field>
         <v-text-field
+          type="name"
           prepend-inner-icon="mdi-account"
           v-model="name"
           :counter="10"
@@ -27,6 +29,7 @@
           color="black"
         ></v-text-field>
         <v-text-field
+          type="password"
           prepend-inner-icon="mdi-key"
           v-model="password"
           :rules="passwordRules"
