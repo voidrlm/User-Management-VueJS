@@ -41,7 +41,7 @@
         <v-btn
           rounded
           color="accent"
-          @click="$emit('closeForm')"
+          @click="cancelClicked"
           dark
           elevation="0"
           class="mr-5 px-4"
@@ -89,8 +89,10 @@ export default {
   }),
   computed: {},
   methods: {
-    performAction(action) {
-      console.log(action);
+    cancelClicked() {
+      this.$refs.form.resetValidation();
+      this.$refs.form.reset();
+      this.$emit("closeForm");
     },
     createUser() {
       this.$refs.form.validate();
