@@ -2,36 +2,39 @@
   <v-card dark>
     <v-card-title class="justify-center">Sign Up</v-card-title>
     <v-card-text>
-      <v-form ref="form" v-model="valid" lazy-validation>
+      <v-form ref="form" v-model="valid" lazy-validation class="ma-5">
         <v-text-field
+          prepend-inner-icon="mdi-account"
           v-model="name"
           :counter="10"
           :rules="nameRules"
-          label="Name"
+          label="Profile Name"
           required
+          solo-inverted
+          rounded
+          color="black"
         ></v-text-field>
 
         <v-text-field
+          prepend-inner-icon="mdi-mail"
           v-model="email"
           :rules="emailRules"
           label="E-mail"
           required
+          solo-inverted
+          rounded
+          color="black"
         ></v-text-field>
-
-        <v-select
-          v-model="select"
-          :items="items"
-          :rules="[(v) => !!v || 'Item is required']"
-          label="Item"
+        <v-text-field
+          prepend-inner-icon="mdi-key"
+          v-model="email"
+          :rules="emailRules"
+          label="Create a password"
           required
-        ></v-select>
-
-        <v-checkbox
-          v-model="checkbox"
-          :rules="[(v) => !!v || 'You must agree to continue!']"
-          label="Do you agree?"
-          required
-        ></v-checkbox>
+          solo-inverted
+          rounded
+          color="black"
+        ></v-text-field>
         <v-btn color="accent" class="mr-4" @click="$emit('closeForm')">
           Close
         </v-btn>
@@ -69,9 +72,6 @@ export default {
       (v) => !!v || "E-mail is required",
       (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
     ],
-    select: null,
-    items: ["Item 1", "Item 2", "Item 3", "Item 4"],
-    checkbox: false,
   }),
   computed: {},
   methods: {
