@@ -50,16 +50,26 @@
         </v-card>
       </v-flex>
     </v-layout>
+    <v-dialog v-model="showSignUpForm" fullscreen
+      ><signUpForm @closeForm="showSignUpForm = false"
+    /></v-dialog>
   </v-container>
 </template>
 <script>
+import signUpForm from "../components/userManagement/signUpForm.vue";
 export default {
   name: "user-auth-component",
-  data: () => ({}),
+  data: () => ({ showSignUpForm: false }),
+  components: {
+    signUpForm,
+  },
   computed: {},
   methods: {
     performAction(action) {
       console.log(action);
+      if (action === "signup") {
+        this.showSignUpForm = true;
+      }
     },
   },
 };
