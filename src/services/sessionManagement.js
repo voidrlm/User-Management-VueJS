@@ -10,3 +10,9 @@ export function initializeSession() {
     }
   }
 }
+export function signOut() {
+  store.dispatch("setCurrentUser", {});
+  router.push({
+    path: "/",
+  });
+}
