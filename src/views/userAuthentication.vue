@@ -77,18 +77,38 @@ export default {
       (value) => (value && value.length >= 8) || "Minimum 6 characters",
     ],
     showSignUpForm: false,
+    userDatabase: [],
   }),
   components: {
     signUpForm,
   },
   computed: {},
   methods: {
+    isUserValid() {
+      this.userDatabase = [];
+      if (localStorage.getItem("userDatabase") !== null) {
+        this.userDatabase = JSON.parse(localStorage.getItem("userDatabase"));
+        for (var i = 0; i < this.userDatabase.length; i++) {
+          if (
+            this.name === this.userDatabase[i].name &&
+            this.password === this.userDatabase[i].password
+          ) {
+            return true;
+          }
+        }
+        return false;
+      }
+    },
     performAction(action) {
       if (action === "signup") {
         this.showSignUpForm = true;
       } else {
         if (this.$refs.form.validate()) {
-          console.log(action);
+          if (this.isUserValid()) {
+            this.$router.push({
+              path: "/dashboard",
+            });
+          } else alert("Cannot find user.");
         }
       }
     },
