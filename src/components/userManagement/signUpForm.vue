@@ -93,7 +93,7 @@ export default {
     password: "",
     passwordRules: [
       (value) => !!value || "Password is required.",
-      (value) => (value && value.length >= 8) || "Minimum 6 characters",
+      (value) => (value && value.length >= 8) || "Minimum 8 characters",
     ],
     userDatabase: [],
   }),
