@@ -5,13 +5,16 @@
         <v-card class="rounded-xl" dark>
           <v-card-title class="justify-center pa-5">Login</v-card-title>
 
-          <v-form class="px-8 mb-n2">
+          <v-form class="px-8 mb-n2" ref="form" v-model="valid" lazy-validation>
             <v-text-field
               color="black"
               prepend-inner-icon="mdi-account"
-              label="UserName/Mail"
+              label="Username"
               type="text"
               solo-inverted
+              v-model="name"
+              :counter="10"
+              :rules="nameRules"
               rounded
             ></v-text-field>
             <v-text-field
@@ -20,6 +23,8 @@
               label="Password"
               type="password"
               solo-inverted
+              v-model="password"
+              :rules="passwordRules"
               rounded
             ></v-text-field>
           </v-form>
@@ -59,16 +64,31 @@
 import signUpForm from "../components/userManagement/signUpForm.vue";
 export default {
   name: "user-auth-component",
-  data: () => ({ showSignUpForm: false }),
+  data: () => ({
+    valid: true,
+    name: "",
+    nameRules: [
+      (v) => !!v || "Name is required",
+      (v) => (v && v.length <= 10) || "Name must be less than 10 characters",
+    ],
+    password: "",
+    passwordRules: [
+      (value) => !!value || "Password is required.",
+      (value) => (value && value.length >= 8) || "Minimum 6 characters",
+    ],
+    showSignUpForm: false,
+  }),
   components: {
     signUpForm,
   },
   computed: {},
   methods: {
     performAction(action) {
-      console.log(action);
-      if (action === "signup") {
-        this.showSignUpForm = true;
+      if (this.$refs.form.validate()) {
+        console.log(action);
+        if (action === "signup") {
+          this.showSignUpForm = true;
+        }
       }
     },
   },
