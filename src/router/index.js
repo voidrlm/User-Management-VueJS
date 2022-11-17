@@ -10,14 +10,11 @@ const router = new VueRouter({
 export default router;
 router.beforeEach((to, from, next) => {
   let isUnauthorized =
-    JSON.stringify(store.getters.currentUser) === JSON.stringify({}) &&
+    JSON.stringify(store.getters.currentUser) === JSON.stringify({}) ||
     localStorage.getItem("userDatabase") === null;
   if (to.matched.some((record) => record.meta.authorized)) {
     if (isUnauthorized) {
       signOut();
-      next({
-        path: "/",
-      });
     } else {
       if (to.matched.some((record) => record.meta.authorized)) {
         if (!isUnauthorized) {

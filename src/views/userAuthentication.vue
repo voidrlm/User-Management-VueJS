@@ -123,6 +123,11 @@ export default {
               name: this.isUserValid()[1].name,
               email: this.isUserValid()[1].mail,
             });
+            if (this.$router.currentRoute.path === "/") {
+              this.$router.push({
+                path: "/dashboard",
+              });
+            }
           } else alert("Cannot find user.");
         }
       }
