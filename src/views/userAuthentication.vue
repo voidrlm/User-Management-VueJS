@@ -21,12 +21,14 @@
             <v-text-field
               color="black"
               prepend-inner-icon="mdi-lock"
+              :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
               label="Password"
-              type="password"
+              :type="showPassword ? 'text' : 'password'"
               solo-inverted
               v-model="password"
               :rules="passwordRules"
               rounded
+              @click:append="showPassword = !showPassword"
               @keypress.enter="performAction('login')"
             ></v-text-field>
           </v-form>
@@ -73,6 +75,7 @@ export default {
       (v) => !!v || "Name is required",
       (v) => (v && v.length <= 10) || "Name must be less than 10 characters",
     ],
+    showPassword: false,
     password: "",
     passwordRules: [
       (value) => !!value || "Password is required.",
