@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import router from "../router";
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
@@ -15,6 +16,11 @@ const store = new Vuex.Store({
     setCurrentUser(context, currentUser) {
       if (context.currentUser === currentUser) return;
       context.commit("setCurrentUser", currentUser);
+      if (router.currentRoute.path === "/") {
+        router.push({
+          path: "/dashboard",
+        });
+      }
     },
 
     resetState(context) {
