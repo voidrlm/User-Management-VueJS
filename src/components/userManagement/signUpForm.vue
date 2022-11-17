@@ -119,17 +119,16 @@ export default {
     createUser() {
       if (this.$refs.signUpForm.validate()) {
         if (this.isUserValid()) {
-          var users = [];
-          if (localStorage.getItem("userDatabase") !== null) {
-            users = JSON.parse(localStorage.getItem("userDatabase"));
-          }
           let newUser = {
             name: this.name,
             mail: this.email,
             password: this.password,
           };
-          users.push(newUser);
-          localStorage.setItem("userDatabase", JSON.stringify(users));
+          this.userDataBase.push(newUser);
+          localStorage.setItem(
+            "userDatabase",
+            JSON.stringify(this.userDataBase)
+          );
           this.goToLoginPage();
         } else alert("Username/Email already exists.");
       }
