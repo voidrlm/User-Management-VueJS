@@ -126,6 +126,7 @@ export default {
             name: this.name,
             mail: this.email,
             password: this.password,
+            avatar: null,
           };
           this.userDataBase.push(newUser);
           localStorage.setItem(
