@@ -19,16 +19,25 @@
     </template>
     <v-list>
       <v-list-item>
-        <v-list-item-avatar>
-          <img
-            src="https://avatars.githubusercontent.com/u/117543015?s=400&u=f884d6fe7910410f3e86aa0ce922777dbc2d51fc&v=4"
-          />
-        </v-list-item-avatar>
-
+        <v-hover>
+          <template v-slot:default="{ hover }">
+            <v-list-item-avatar>
+              <v-img
+                src="https://avatars.githubusercontent.com/u/117543015?s=400&u=f884d6fe7910410f3e86aa0ce922777dbc2d51fc&v=4"
+              >
+              </v-img>
+              <v-fade-transition>
+                <v-overlay v-if="hover" absolute>
+                  <v-btn icon> <v-icon size="20">mdi-pencil</v-icon></v-btn>
+                </v-overlay>
+              </v-fade-transition>
+            </v-list-item-avatar>
+          </template>
+        </v-hover>
         <v-list-item-content>
-          <v-list-item-title>{{
-            $store.getters.currentUser.name
-          }}</v-list-item-title>
+          <v-list-item-title
+            >{{ $store.getters.currentUser.name }}
+          </v-list-item-title>
           <v-list-item-subtitle>Logged in</v-list-item-subtitle>
         </v-list-item-content>
 
