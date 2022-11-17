@@ -34,8 +34,9 @@
           color="black"
         ></v-text-field>
         <v-text-field
-          type="password"
+          :type="showPassword ? 'text' : 'password'"
           prepend-inner-icon="mdi-key"
+          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
           v-model="password"
           :rules="passwordRules"
           label="Create a password"
@@ -43,6 +44,7 @@
           solo-inverted
           rounded
           color="black"
+          @click:append="showPassword = !showPassword"
         ></v-text-field>
       </v-form>
       <v-card-actions class="justify-center pb-5 mt-n2">
@@ -87,6 +89,7 @@ export default {
       (v) => !!v || "E-mail is required",
       (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
     ],
+    showPassword: false,
     password: "",
     passwordRules: [
       (value) => !!value || "Password is required.",
