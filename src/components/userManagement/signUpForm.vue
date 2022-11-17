@@ -1,25 +1,26 @@
 <template>
   <v-card dark>
-    <v-card-title class="justify-center">Sign Up</v-card-title>
+    <v-card-title class="justify-center py-5"
+      >Sign up with your email address</v-card-title
+    >
     <v-card-text>
-      <v-form ref="form" v-model="valid" lazy-validation class="ma-5">
+      <v-form ref="form" v-model="valid" lazy-validation>
+        <v-text-field
+          prepend-inner-icon="mdi-mail"
+          v-model="email"
+          :rules="emailRules"
+          label="E-mail"
+          required
+          solo-inverted
+          rounded
+          color="black"
+        ></v-text-field>
         <v-text-field
           prepend-inner-icon="mdi-account"
           v-model="name"
           :counter="10"
           :rules="nameRules"
           label="Profile Name"
-          required
-          solo-inverted
-          rounded
-          color="black"
-        ></v-text-field>
-
-        <v-text-field
-          prepend-inner-icon="mdi-mail"
-          v-model="email"
-          :rules="emailRules"
-          label="E-mail"
           required
           solo-inverted
           rounded
@@ -35,22 +36,30 @@
           rounded
           color="black"
         ></v-text-field>
-        <v-btn color="accent" class="mr-4" @click="$emit('closeForm')">
-          Close
+      </v-form>
+      <v-card-actions class="justify-center pb-5 mt-n2">
+        <v-btn
+          rounded
+          color="accent"
+          @click="$emit('closeForm')"
+          dark
+          elevation="0"
+          class="mr-5 px-4"
+          :class="$vuetify.theme.dark ? 'white--text' : 'black--text'"
+        >
+          Cancel
         </v-btn>
         <v-btn
-          :disabled="!valid"
-          color="success"
-          class="mr-4"
-          @click="validate"
+          rounded
+          color="accent"
+          @click="createUser"
+          dark
+          elevation="0 px-4"
+          :class="$vuetify.theme.dark ? 'white--text' : 'black--text'"
         >
-          Validate
+          Sign up
         </v-btn>
-        <v-btn color="error" class="mr-4" @click="reset"> Reset Form </v-btn>
-        <v-btn color="warning" @click="resetValidation">
-          Reset Validation
-        </v-btn>
-      </v-form></v-card-text
+      </v-card-actions></v-card-text
     >
   </v-card>
 </template>
@@ -83,14 +92,8 @@ export default {
     performAction(action) {
       console.log(action);
     },
-    validate() {
+    createUser() {
       this.$refs.form.validate();
-    },
-    reset() {
-      this.$refs.form.reset();
-    },
-    resetValidation() {
-      this.$refs.form.resetValidation();
     },
   },
 };

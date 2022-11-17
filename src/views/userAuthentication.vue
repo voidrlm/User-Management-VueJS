@@ -24,7 +24,7 @@
             ></v-text-field>
           </v-form>
 
-          <v-card-actions class="justify-center nt-n5 pb-5">
+          <v-card-actions class="justify-center pb-5">
             <v-btn
               rounded
               color="accent"
