@@ -84,10 +84,11 @@ export default {
   computed: {},
   methods: {
     performAction(action) {
-      if (this.$refs.form.validate()) {
-        console.log(action);
-        if (action === "signup") {
-          this.showSignUpForm = true;
+      if (action === "signup") {
+        this.showSignUpForm = true;
+      } else {
+        if (this.$refs.form.validate()) {
+          console.log(action);
         }
       }
     },
