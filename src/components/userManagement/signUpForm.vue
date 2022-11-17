@@ -4,7 +4,12 @@
       >Sign up with your email address</v-card-title
     >
     <v-card-text>
-      <v-form ref="form" v-model="valid" lazy-validation class="px-8 mt-3">
+      <v-form
+        ref="signUpForm"
+        v-model="valid"
+        lazy-validation
+        class="px-8 mt-3"
+      >
         <v-text-field
           type="mail"
           prepend-inner-icon="mdi-mail"
@@ -44,7 +49,7 @@
         <v-btn
           rounded
           color="accent"
-          @click="cancelClicked"
+          @click="goToLoginPage"
           dark
           elevation="0"
           class="mr-5 px-4"
@@ -69,9 +74,7 @@
 <script>
 export default {
   name: "sign-up-component",
-  props: {
-    // showSignUpForm: { type: Boolean, default: false },
-  },
+  props: {},
   data: () => ({
     valid: true,
     name: "",
@@ -89,26 +92,46 @@ export default {
       (value) => !!value || "Password is required.",
       (value) => (value && value.length >= 8) || "Minimum 6 characters",
     ],
+    userDatabase: [],
   }),
+
   computed: {},
   methods: {
-    cancelClicked() {
-      this.$refs.form.resetValidation();
-      this.$refs.form.reset();
+    isUserValid() {
+      this.userDatabase = [];
+      if (localStorage.getItem("userDatabase") !== null) {
+        this.userDatabase = JSON.parse(localStorage.getItem("userDatabase"));
+        if (
+          this.userDatabase.some((user) => user.name === this.name) ||
+          this.userDatabase.some((user) => user.mail === this.email)
+        ) {
+          return false;
+        } else {
+          return true;
+        }
+      }
+    },
+    goToLoginPage() {
+      this.$refs.signUpForm.resetValidation();
+      this.$refs.signUpForm.reset();
       this.$emit("closeForm");
     },
     createUser() {
-      if (this.$refs.form.validate()) {
-        var users = [];
-        if (localStorage.getItem("userDatabase") !== null) {
-          users = JSON.parse(localStorage.getItem("userDatabase"));
-        }
-        let newUser = {
-          name: this.name,
-          password: this.password,
-        };
-        users.push(newUser);
-        localStorage.setItem("userDatabase", JSON.stringify(users));
+      if (this.$refs.signUpForm.validate()) {
+        if (this.isUserValid()) {
+          var users = [];
+          if (localStorage.getItem("userDatabase") !== null) {
+            users = JSON.parse(localStorage.getItem("userDatabase"));
+          }
+          let newUser = {
+            name: this.name,
+            mail: this.email,
+            password: this.password,
+          };
+          users.push(newUser);
+          localStorage.setItem("userDatabase", JSON.stringify(users));
+          this.goToLoginPage();
+        } else alert("Username/Email already exists.");
       }
     },
   },
