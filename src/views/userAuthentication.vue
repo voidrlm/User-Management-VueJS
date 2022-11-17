@@ -16,6 +16,7 @@
               :counter="10"
               :rules="nameRules"
               rounded
+              @keypress.enter="performAction('login')"
             ></v-text-field>
             <v-text-field
               color="black"
@@ -26,6 +27,7 @@
               v-model="password"
               :rules="passwordRules"
               rounded
+              @keypress.enter="performAction('login')"
             ></v-text-field>
           </v-form>
 
