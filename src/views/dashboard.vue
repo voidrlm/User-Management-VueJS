@@ -13,7 +13,8 @@
             ? "mdi-moon-waning-crescent"
             : "mdi-white-balance-sunny"
         }}</v-icon
-      >{{ getGreetingData }}, User!</v-card-title
+      >{{ getGreetingData }},
+      {{ $store.getters.currentUser.name }} !</v-card-title
     >
   </v-container>
 </template>

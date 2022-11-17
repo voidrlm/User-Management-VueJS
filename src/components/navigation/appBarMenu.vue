@@ -13,7 +13,8 @@
             src="https://avatars.githubusercontent.com/u/117543015?s=400&u=f884d6fe7910410f3e86aa0ce922777dbc2d51fc&v=4"
           />
         </v-avatar>
-        Voidrlm <v-icon right size="20"> mdi-chevron-down </v-icon>
+        {{ $store.getters.currentUser.name }}
+        <v-icon right size="20"> mdi-chevron-down </v-icon>
       </v-chip>
     </template>
     <v-list>
@@ -25,12 +26,14 @@
         </v-list-item-avatar>
 
         <v-list-item-content>
-          <v-list-item-title>Voidrlm</v-list-item-title>
+          <v-list-item-title>{{
+            $store.getters.currentUser.name
+          }}</v-list-item-title>
           <v-list-item-subtitle>Logged in</v-list-item-subtitle>
         </v-list-item-content>
 
         <v-list-item-action>
-          <v-btn icon>
+          <v-btn icon @click="signOut">
             <v-icon>mdi-logout</v-icon>
           </v-btn>
         </v-list-item-action>
@@ -109,10 +112,14 @@
 </template>
 
 <script>
+import { signOut } from "../../services/sessionManagement";
 export default {
   data: () => ({}),
 
   methods: {
+    signOut() {
+      signOut();
+    },
     saveSettings(parameter, color) {
       if (parameter === "darkMode") {
         localStorage.setItem("darkTheme", this.$vuetify.theme.dark);
