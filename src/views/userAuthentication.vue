@@ -83,6 +83,15 @@ export default {
     signUpForm,
   },
   computed: {},
+  beforeCreate() {
+    if (
+      JSON.stringify(this.$store.getters.currentUser) !== JSON.stringify({})
+    ) {
+      this.$router.push({
+        path: "/dashboard",
+      });
+    }
+  },
   methods: {
     isUserValid() {
       this.userDatabase = [];
@@ -93,10 +102,10 @@ export default {
             this.name === this.userDatabase[i].name &&
             this.password === this.userDatabase[i].password
           ) {
-            return true;
+            return [true, this.userDatabase[i]];
           }
         }
-        return false;
+        return [false];
       }
     },
     performAction(action) {
@@ -104,9 +113,10 @@ export default {
         this.showSignUpForm = true;
       } else {
         if (this.$refs.form.validate()) {
-          if (this.isUserValid()) {
-            this.$router.push({
-              path: "/dashboard",
+          if (this.isUserValid()[0]) {
+            this.$store.dispatch("setCurrentUser", {
+              name: this.isUserValid()[1].name,
+              email: this.isUserValid()[1].mail,
             });
           } else alert("Cannot find user.");
         }
