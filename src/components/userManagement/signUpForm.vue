@@ -98,7 +98,18 @@ export default {
       this.$emit("closeForm");
     },
     createUser() {
-      this.$refs.form.validate();
+      if (this.$refs.form.validate()) {
+        var users = [];
+        if (localStorage.getItem("userDatabase") !== null) {
+          users = JSON.parse(localStorage.getItem("userDatabase"));
+        }
+        let newUser = {
+          name: this.name,
+          password: this.password,
+        };
+        users.push(newUser);
+        localStorage.setItem("userDatabase", JSON.stringify(users));
+      }
     },
   },
 };
