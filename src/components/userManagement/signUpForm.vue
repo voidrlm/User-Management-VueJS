@@ -1,10 +1,10 @@
 <template>
   <v-card dark>
-    <v-card-title class="justify-center py-5"
+    <v-card-title class="justify-center py-8"
       >Sign up with your email address</v-card-title
     >
     <v-card-text>
-      <v-form ref="form" v-model="valid" lazy-validation>
+      <v-form ref="form" v-model="valid" lazy-validation class="px-8 mt-3">
         <v-text-field
           prepend-inner-icon="mdi-mail"
           v-model="email"
