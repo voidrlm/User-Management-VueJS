@@ -27,8 +27,8 @@
         ></v-text-field>
         <v-text-field
           prepend-inner-icon="mdi-key"
-          v-model="email"
-          :rules="emailRules"
+          v-model="password"
+          :rules="passwordRules"
           label="Create a password"
           required
           solo-inverted
@@ -71,6 +71,11 @@ export default {
     emailRules: [
       (v) => !!v || "E-mail is required",
       (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
+    ],
+    password: "",
+    passwordRules: [
+      (value) => !!value || "Password is required.",
+      (value) => (value && value.length >= 8) || "Minimum 6 characters",
     ],
   }),
   computed: {},
