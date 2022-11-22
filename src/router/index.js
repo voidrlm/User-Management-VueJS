@@ -1,7 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import routes from "./routes";
-import store from "@/store/index";
 import { signOut } from "../services/sessionManagement";
 Vue.use(VueRouter);
 const router = new VueRouter({
@@ -10,8 +9,8 @@ const router = new VueRouter({
 export default router;
 router.beforeEach((to, from, next) => {
   let isUnauthorized =
-    JSON.stringify(store.getters.currentUser) === JSON.stringify({}) ||
-    localStorage.getItem("userDatabase") === null;
+    window.$cookies.get("uauth") === null &&
+    JSON.stringify(window.$cookies.get("uauth")) === JSON.stringify({});
   if (to.matched.some((record) => record.meta.authorized)) {
     if (isUnauthorized) {
       signOut();
