@@ -13,7 +13,7 @@
             <v-img
               :src="
                 $store.getters.currentUser.avatar
-                  ? 'https://avatars.githubusercontent.com/u/117543015?s=400&u=f884d6fe7910410f3e86aa0ce922777dbc2d51fc&v=4'
+                  ? $store.getters.currentUser.avatar
                   : {
                       src: require('../../assets/defaultAvatar.png'),
                       text: 'Default Avatar',
@@ -34,7 +34,7 @@
                 <v-img
                   :src="
                     $store.getters.currentUser.avatar
-                      ? 'https://avatars.githubusercontent.com/u/117543015?s=400&u=f884d6fe7910410f3e86aa0ce922777dbc2d51fc&v=4'
+                      ? $store.getters.currentUser.avatar
                       : {
                           src: require('../../assets/defaultAvatar.png'),
                           text: 'Default Avatar',
