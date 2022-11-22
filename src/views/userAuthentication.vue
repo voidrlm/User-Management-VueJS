@@ -111,17 +111,18 @@ export default {
           }
         }
         return [false];
-      }
+      } else return [false];
     },
     performAction(action) {
       if (action === "signup") {
         this.showSignUpForm = true;
       } else {
         if (this.$refs.form.validate()) {
-          if (this.isUserValid()[0]) {
+          if (this.isUserValid()[0] === true) {
             this.$store.dispatch("setCurrentUser", {
               name: this.isUserValid()[1].name,
               email: this.isUserValid()[1].mail,
+              avatar: this.isUserValid()[1].avatar,
             });
             if (this.$router.currentRoute.path === "/") {
               this.$router.push({
