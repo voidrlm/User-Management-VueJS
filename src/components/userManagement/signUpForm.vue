@@ -102,7 +102,10 @@ export default {
   methods: {
     isUserValid() {
       this.userDatabase = [];
-      if (localStorage.getItem("userDatabase") !== null) {
+      if (
+        localStorage.getItem("userDatabase") !== null &&
+        JSON.parse(localStorage.getItem("userDatabase")).length !== 0
+      ) {
         this.userDatabase = JSON.parse(localStorage.getItem("userDatabase"));
         if (
           this.userDatabase.some((user) => user.name === this.name) ||
@@ -112,6 +115,9 @@ export default {
         } else {
           return true;
         }
+      } else {
+        localStorage.setItem("userDatabase", JSON.stringify(this.userDatabase));
+        return true;
       }
     },
     goToLoginPage() {
@@ -128,13 +134,15 @@ export default {
             password: this.password,
             avatar: null,
           };
-          this.userDataBase.push(newUser);
+          this.userDatabase.push(newUser);
           localStorage.setItem(
             "userDatabase",
-            JSON.stringify(this.userDataBase)
+            JSON.stringify(this.userDatabase)
           );
           this.goToLoginPage();
-        } else alert("Username/Email already exists.");
+        } else {
+          alert("Username/Email already exists.");
+        }
       }
     },
   },
