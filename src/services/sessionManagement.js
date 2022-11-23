@@ -18,3 +18,12 @@ export function initializeSession() {
     }
   }
 }
+export function signOut() {
+  window.$cookies.remove("uauth");
+  store.dispatch("setCurrentUser", {});
+  if (router.currentRoute.path !== "/") {
+    router.push({
+      path: "/",
+    });
+  }
+}
